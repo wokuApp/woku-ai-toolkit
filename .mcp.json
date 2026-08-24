@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "woku": {
+      "type": "http",
+      "url": "https://api.woku.app/mcp"
+    }
+  }
+}

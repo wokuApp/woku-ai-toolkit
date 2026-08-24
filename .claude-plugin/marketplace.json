@@ -1,0 +1,21 @@
+{
+  "name": "woku-ai-toolkit",
+  "owner": {
+    "name": "woku"
+  },
+  "metadata": {
+    "description": "The woku AI Toolkit: connect your agent to woku's voice-of-customer platform"
+  },
+  "plugins": [
+    {
+      "name": "woku",
+      "source": "./",
+      "description": "Design a listening program for your customer journey, run the VoC instruments (NPS, CSAT, CES, wokus), and turn every signal into a support ticket or an action plan, through woku's MCP server.",
+      "version": "0.1.0",
+      "author": { "name": "woku" },
+      "license": "MIT",
+      "homepage": "https://woku.app",
+      "keywords": ["woku", "mcp", "voice-of-customer", "cx", "nps", "csat", "ces", "surveys", "feedback"]
+    }
+  ]
+}

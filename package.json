@@ -1,0 +1,29 @@
+{
+  "name": "@woku/ai-toolkit",
+  "version": "0.1.0",
+  "description": "woku AI Toolkit: connect your agent to woku's voice-of-customer platform. Design VoC programs and turn customer feedback into support tickets and action plans, through woku's MCP server.",
+  "author": "woku",
+  "license": "MIT",
+  "homepage": "https://docs.woku.app/mcp/agent-guide",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wokuApp/woku-ai-toolkit"
+  },
+  "keywords": [
+    "woku",
+    "mcp",
+    "voice-of-customer",
+    "cx",
+    "nps",
+    "csat",
+    "ces",
+    "surveys",
+    "feedback",
+    "plugin"
+  ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}
