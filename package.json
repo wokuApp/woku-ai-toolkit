@@ -19,7 +19,8 @@
     "ces",
     "surveys",
     "feedback",
-    "plugin"
+    "plugin",
+    "pi-package"
   ],
   "pi": {
     "skills": [

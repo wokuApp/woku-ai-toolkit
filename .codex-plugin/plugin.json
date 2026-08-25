@@ -8,19 +8,26 @@
   "license": "MIT",
   "keywords": ["woku", "voice-of-customer", "cx", "nps", "csat", "ces", "surveys", "feedback"],
   "skills": "./skills/",
+  "mcpServers": {
+    "woku": {
+      "type": "http",
+      "url": "https://api.woku.app/mcp"
+    }
+  },
   "interface": {
     "displayName": "woku",
-    "shortDescription": "Design VoC programs and turn customer feedback into tickets and action plans.",
+    "shortDescription": "Turn customer feedback into tickets and action plans.",
     "longDescription": "Connect your agent to woku, the voice-of-customer platform. Design a listening program for your customer journey, place the fast VoC instruments (NPS, CSAT, CES, wokus) at each moment of truth, and turn every signal into a support ticket or an action plan.",
     "developerName": "woku",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
     "websiteURL": "https://woku.app",
+    "privacyPolicyURL": "https://woku.app/privacy-policy",
+    "termsOfServiceURL": "https://woku.app/terms-and-conditions",
     "defaultPrompt": [
-      "I run an ecommerce, how do I start listening to my customers with woku?",
+      "How do I start listening to my customers?",
       "Design a VoC program for my customer journey",
-      "How is my NPS this month, and should I open an action plan?",
-      "Summarize last week's reviews and the top improvement themes"
+      "How is my NPS, and should I open an action plan?"
     ]
   }
 }

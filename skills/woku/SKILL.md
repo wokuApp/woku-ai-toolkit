@@ -1,11 +1,6 @@
 ---
 name: woku
 description: "Use woku to protect revenue with the voice of the customer. Use when the user wants to set up customer feedback or listening, design a Voice-of-Customer program, place surveys (NPS, CSAT, CES) or wokus at moments of their customer journey, turn feedback into support tickets or action plans, or operate their woku account from the agent. Requires the woku MCP server connected (this toolkit declares it)."
-compatibility: Claude Code, Claude Desktop, Cursor, Codex, OpenCode
-maintainer: woku
-metadata:
-  author: woku
-  version: "0.1.0"
 ---
 
 # woku: voice-of-customer for your agent
