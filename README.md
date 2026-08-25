@@ -29,13 +29,7 @@ It bundles:
 
   Codex handles woku's OAuth automatically (`auth = "oauth"` by default). Once the toolkit is listed in a Codex marketplace, `codex plugin add woku` will install the packaged skill as well.
 
-- **OpenCode**: install the package from the git mirror:
-
-  ```
-  openclaw plugins install git:github.com/wokuApp/woku-ai-toolkit
-  ```
-
-  Once published to npm, `openclaw plugins install npm:@woku/ai-toolkit` also works. Alternatively, add the server directly in `opencode.json`:
+- **OpenCode**: add the woku MCP server to your `opencode.json`:
 
   ```json
   {
@@ -47,6 +41,15 @@ It bundles:
       }
     }
   }
+  ```
+
+  OpenCode handles woku's OAuth automatically (dynamic client registration). To start the login manually, run `opencode mcp auth woku`.
+
+- **OpenClaw**: install the package from the git mirror (or from npm once published):
+
+  ```
+  openclaw plugins install git:github.com/wokuApp/woku-ai-toolkit
+  openclaw plugins install npm:@woku/ai-toolkit
   ```
 
 - **claude.ai and ChatGPT**: these are configured from the app, not from a package. Add a custom connector (claude.ai) or a developer-mode connector (ChatGPT) with the URL `https://api.woku.app/mcp`.
