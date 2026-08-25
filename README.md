@@ -68,7 +68,7 @@ OpenClaw's plugin manifest declares local MCP servers only, so add woku's remote
 
 ### Pi
 
-The package exposes the woku skill through Pi's `pi` package convention. Once `@woku/ai-toolkit` is published to npm, install it in your project and Pi loads the skill. Add woku's MCP server (`https://api.woku.app/mcp`) through Pi's MCP configuration.
+The package exposes the woku skill through Pi's `pi` package convention. Install `@wokuapp/ai-toolkit` from npm in your project and Pi loads the skill. Add woku's MCP server (`https://api.woku.app/mcp`) through Pi's MCP configuration.
 
 ### claude.ai and ChatGPT
 

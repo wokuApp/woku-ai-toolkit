@@ -1,5 +1,5 @@
 {
-  "name": "@woku/ai-toolkit",
+  "name": "@wokuapp/ai-toolkit",
   "version": "0.1.0",
   "description": "woku AI Toolkit: connect your agent to woku's voice-of-customer platform. Design VoC programs and turn customer feedback into support tickets and action plans, through woku's MCP server.",
   "author": "woku",
@@ -21,6 +21,19 @@
     "feedback",
     "plugin",
     "pi-package"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "skills",
+    ".mcp.json",
+    ".claude-plugin",
+    ".codex-plugin",
+    "openclaw.plugin.json",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "pi": {
     "skills": [
