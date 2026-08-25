@@ -61,8 +61,10 @@ OpenCode runs OAuth automatically on the first authenticated call. To start the 
 Install the plugin (this ships the woku skill):
 
 ```
-openclaw plugins install git:github.com/wokuApp/woku-ai-toolkit
+openclaw plugins install npm:@wokuapp/ai-toolkit
 ```
+
+You can also install from the git repository with `openclaw plugins install git:github.com/wokuApp/woku-ai-toolkit`.
 
 OpenClaw's plugin manifest declares local MCP servers only, so add woku's remote MCP server (`https://api.woku.app/mcp`) through your OpenClaw MCP configuration.
 
