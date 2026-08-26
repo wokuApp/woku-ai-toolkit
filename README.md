@@ -8,6 +8,7 @@ It bundles:
 
 - The **woku MCP server** connection (`https://api.woku.app/mcp`), so the agent gets the full catalog (143 tools) with woku's OAuth. No API keys to copy.
 - The **woku skill**, which primes the agent with the method and tells it to call `woku_guide` first.
+- The **woku SDK skills** for JavaScript (`@wokuapp/sdk`) and Python (`woku`), so the agent can build server-side woku integrations in code (create tools, send surveys, read responses, drive tickets and action plans) over the public `/v1` API.
 
 ## Install
 
