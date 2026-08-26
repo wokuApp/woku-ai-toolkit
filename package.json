@@ -1,6 +1,6 @@
 {
   "name": "@wokuapp/ai-toolkit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "woku AI Toolkit: connect your agent to woku's voice-of-customer platform. Design VoC programs and turn customer feedback into support tickets and action plans, through woku's MCP server.",
   "author": "woku",
   "license": "MIT",

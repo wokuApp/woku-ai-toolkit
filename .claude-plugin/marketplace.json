@@ -11,7 +11,7 @@
       "name": "woku",
       "source": "./",
       "description": "Design a listening program for your customer journey, run the VoC instruments (NPS, CSAT, CES, wokus), and turn every signal into a support ticket or an action plan, through woku's MCP server.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": { "name": "woku" },
       "license": "MIT",
       "homepage": "https://woku.app",

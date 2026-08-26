@@ -1,7 +1,7 @@
 {
   "name": "woku",
   "description": "Voice-of-customer for Claude Code. Design a listening program for your customer journey, run the fast VoC instruments (NPS, CSAT, CES, wokus), and turn every signal into a support ticket or an action plan, through woku's MCP server. Bundles the woku method so the agent acts as a CX consultant.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": { "name": "woku" },
   "homepage": "https://woku.app",
   "license": "MIT",

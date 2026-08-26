@@ -2,7 +2,7 @@
   "id": "woku-ai-toolkit",
   "name": "woku AI Toolkit",
   "description": "Voice-of-customer for your agent. Design a listening program, run the VoC instruments (NPS, CSAT, CES, wokus), and turn every signal into a support ticket or an action plan, through woku's MCP server.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "skills": ["./skills"],
   "configSchema": {
     "type": "object",

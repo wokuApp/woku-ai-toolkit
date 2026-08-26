@@ -62,12 +62,9 @@ const delivery = await woku.dispatches.stats({ channel: 'email' });
 // Support tickets (AI-generated): list, filter, curate.
 for await (const t of await woku.tickets.list({ severity: 'high' })) console.log(t.title);
 
-// Action plans: approve and send to Jira/Monday/ClickUp/Notion or manage in woku.
+// Action plans: approve and manage inside woku (change status, work tasks).
 await woku.actionPlans.approve('plan_123');
-await woku.actionPlans.send('plan_123', {
-  provider: 'jira',
-  target: { projectId: '10032', issueTypeId: '10001' },
-});
+await woku.actionPlans.complete('plan_123');
 ```
 
 Namespaces: `trackers`, `npsTools` / `csatTools` / `cesTools`, `nps` / `csat` /
