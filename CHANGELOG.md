@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+Remove the action-plan external-send example (Jira/Monday/ClickUp/Notion) from the SDK skills: those destinations are not available in production and the SDKs dropped `actionPlans.send`. The skills now show approve plus manage-in-woku.
+
 ## 0.2.0
 
 Add two developer skills so the agent can build server-side woku integrations in code, not only operate the account through the MCP server:

@@ -63,12 +63,9 @@ delivery = woku.dispatches.stats({"channel": "email"})
 for t in woku.tickets.list({"severity": "high"}):
     print(t["title"])
 
-# Action plans: approve and send to Jira/Monday/ClickUp/Notion or manage in woku.
+# Action plans: approve and manage inside woku (change status, work tasks).
 woku.action_plans.approve("plan_123")
-woku.action_plans.send(
-    "plan_123",
-    {"provider": "jira", "target": {"projectId": "10032", "issueTypeId": "10001"}},
-)
+woku.action_plans.complete("plan_123")
 ```
 
 Namespaces: `trackers`, `nps_tools` / `csat_tools` / `ces_tools`, `nps` / `csat`
