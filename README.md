@@ -6,9 +6,11 @@ The toolkit gives your agent woku's full tool catalog through woku's MCP server,
 
 It bundles:
 
-- The **woku MCP server** connection (`https://api.woku.app/mcp`), so the agent gets the full catalog (143 tools) with woku's OAuth. No API keys to copy.
+- The **woku MCP server** connection (`https://api.woku.app/mcp`), so the agent gets the live catalog with woku's OAuth. No API keys to copy.
 - The **woku skill**, which primes the agent with the method and tells it to call `woku_guide` first.
 - The **woku SDK skills** for JavaScript (`@wokuapp/sdk`) and Python (`woku`), so the agent can build server-side woku integrations in code (create tools, send surveys, read responses, drive tickets and action plans) over the public `/v1` API.
+
+The live `tools/list` response is authoritative. The catalog focuses on journeys, feedback instruments, clients, trackers, instrument reports and action plans. Data Studio and support tickets are Corporate capabilities.
 
 ## Install
 

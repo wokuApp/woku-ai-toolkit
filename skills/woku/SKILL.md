@@ -28,4 +28,4 @@ Every business is a customer journey, and each moment of truth decides whether t
 
 ## Safety
 
-Read tools need no special permission. Write tools require the `mcp:write` scope, and destructive tools (for example `delete_woku`) or sends (for example `send_nps_invitations`, `send_report_now`) require `confirm: true`. The list the server advertises on a live connection (`tools/list`) is always the authoritative answer about what is available.
+Read tools need no special permission. Write tools require the `mcp:write` scope, and destructive tools (for example `delete_woku`) or sends (for example `send_nps_invitations`) require `confirm: true`. The list the server advertises on a live connection (`tools/list`) is always the authoritative answer about what is available.
