@@ -8,7 +8,7 @@ description: "Build a server-side woku integration in JavaScript or TypeScript w
 `@wokuapp/sdk` is the official **server-side** client for the woku management API
 (`/v1`). Use it when the user wants woku operations in their Node.js backend
 instead of raw HTTP. It is typed, retries transient failures, makes creates
-idempotent, and auto-paginates lists.
+safe for protected writes, and supports pagination.
 
 **Server-only.** The company secret key grants full management access. Keep it on
 the backend, never in a browser, mobile app or other untrusted client. For
@@ -33,8 +33,9 @@ const woku = new Woku({ apiKey: process.env.WOKU_API_KEY });
 
 ## Core operations
 
-Creates are idempotent (auto `Idempotency-Key`); actions (send, test, reply) are
-never auto-retried.
+GETs and protected writes retry with a stable key: tracker/VoC definitions,
+invitations, and journey create/enroll/stop/mint-URL/event operations. Other writes
+and uploads are attempted once. A key alone does not make a write idempotent.
 
 ```ts
 // Tracker definitions and values (wire your CRM/ERP ids to feedback tools).
@@ -44,7 +45,8 @@ await woku.trackers.assignToWoku('woku_123', { name: 'Store #1', value: 'TX-42' 
 // VoC tools: npsTools / csatTools / cesTools (create/list/get/update/delete).
 const tool = await woku.npsTools.create({
   name: 'Post-purchase',
-  npsMessage: 'How likely are you to recommend us?',
+  npsMessage: 'our company',
+  audienceType: 'a friend or colleague',
 });
 
 // Send a survey. IMPORTANT: `channel` is required and `recipients` is an array
@@ -69,7 +71,7 @@ await woku.actionPlans.complete('plan_123');
 
 Namespaces: `trackers`, `npsTools` / `csatTools` / `cesTools`, `nps` / `csat` /
 `ces`, `wokus`, `forms`, `flows`, `actionPlans`, `actionPlanGroups`, `tickets`,
-`ticketDestinations`, `dispatches`, `reports`, `company`, `quarantines`.
+`ticketDestinations`, `dispatches`, `reports`, `company`, `quarantines`, `journeys`, `media`.
 
 ## Pagination, errors, retries
 
@@ -90,6 +92,39 @@ the old one; store the returned key. `woku.company.revokeKey()` disables the key
 ## When to reach for the reference
 
 For the full method list, request/response shapes and per-call options, point the
-user to the SDK page at https://docs.woku.app/development/sdk-javascript and the
-API reference at https://docs.woku.app/development/api. There is an equivalent
+user to the SDK page at https://woku.app/docs/en/development/sdk-javascript and the
+API reference at https://woku.app/docs/en/development/api. There is an equivalent
 Python SDK (`woku`) documented at /development/sdk-python.
+
+## Customer journeys and media
+
+Prefer an actual journey when the task coordinates several business moments.
+One moment has one tool: several facets use Woku, satisfaction CSAT, effort CES,
+recommendation NPS. A separate loyalty intention can add a moment; several facets
+of delivery must not become several delivery moments. Journey response tools are
+identified. Operator sends start immediately; opening a QR/link waits for a saved
+first response. Later moments wait or use their webhook, optionally with a backup.
+Default wait is ten days; zero means one hour. Keep reminders enabled unless asked.
+
+The SDK exposes 17 journey methods, plus lazy enrollment iteration. Public cursor
+pages allow 100 items (default 20); the Admin page endpoint is separate and uses 50.
+Use the exact enrollment id to stop one case. Editing creates a new definition
+version; running cases keep their snapshot. A cycle finishes on its last response
+or 30 days from the first send of the last moment.
+
+Media uploads use multipart and return fileId for moment.toolSpec.fileId. They do
+not retry automatically; 413 is PayloadTooLargeError. Company keys remain on the
+backend; minted webhook URLs use a separate HTTP transport without that key.
+Keep request/idempotency ids stable during uncertain retries. Deduplication lasts
+24 hours; inspect the outcome before submitting with a new key.
+
+These v4 additions are prepared for the next package release. Verify the installed
+version and changelog before using methods not present in an older package.
+
+```ts
+const media = await woku.media.upload({ file: imageBytes, filename: 'delivery.jpg', contentType: 'image/jpeg' });
+for await (const enrollment of woku.journeys.iterEnrollments(journeyId, { limit: 100 })) {
+  console.log(enrollment.id, enrollment.lifecycle);
+}
+await woku.journeys.previewMoment(journeyId, 'delivery', { order: 'case-123', late: true });
+```

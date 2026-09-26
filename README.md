@@ -83,7 +83,7 @@ These are configured from the app, not from a package. Add a custom connector (c
 
 Point it at `https://api.woku.app/mcp` and approve access from your woku account.
 
-See the [connect guide](https://docs.woku.app/mcp/connect-a-client) and the [agent guide](https://docs.woku.app/mcp/agent-guide) for details.
+See the [connect guide](https://woku.app/docs/en/mcp/connect-a-client) and the [agent guide](https://woku.app/docs/en/mcp/agent-guide) for details.
 
 ## What you get
 
@@ -99,3 +99,24 @@ Every connection is bound to one company, chosen when you approve access. Read t
 ## License
 
 MIT. See [LICENSE](./LICENSE).
+
+### Journey guidance update (0.2.2, prepared)
+
+The bundled skills now route coordinated evaluations through journeys, preserve a
+reviewed MCP proposal, explain local media capabilities by host, and cover the v4
+SDK media and enrollment iterators. They distinguish protected retries from other
+writes and use variable fragments for NPS questions. Verify the installed SDK
+release before using newly prepared methods. This change does not publish a package.
+
+#### Local media by host
+
+- Codex and Claude Code upload local files through multipart `POST /v1/woku-media`
+  or the backend SDK. The remote MCP tool accepts a public HTTPS URL or a supported
+  host-authorized file, never a local path or image bytes pasted as model text.
+  Never put a company secret key in frontend code.
+- ChatGPT and Claude web attachment access depends on the host and connector. Use
+  only file references that the connected tool can actually read, or a genuinely
+  public HTTPS URL. Do not invent a URL for a private attachment or promise that
+  every host forwards its uploaded files automatically.
+- Check the live tool schema and the `customer_journeys` playbook before choosing
+  the representation. Upload first, then use its `fileId` in the reviewed proposal.

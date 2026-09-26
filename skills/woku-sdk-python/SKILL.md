@@ -9,7 +9,7 @@ The `woku` package is the official **server-side** client for the woku
 management API (`/v1`), over `httpx`. Use it when the user wants woku operations
 in their Python backend instead of raw HTTP. It offers a synchronous client
 (`Woku`) and an asynchronous twin (`AsyncWoku`), typed request models, automatic
-retries, idempotent creates and auto-pagination. It is the counterpart of the
+protected write retries and pagination. It is the counterpart of the
 JavaScript SDK (`@wokuapp/sdk`), with the same surface.
 
 **Server-only.** The company secret key grants full management access. Keep it on
@@ -35,8 +35,9 @@ woku = Woku(api_key="sk_...")  # or set WOKU_API_KEY and call Woku()
 
 ## Core operations
 
-Creates are idempotent (auto `Idempotency-Key`); actions (send, test, reply) are
-never auto-retried.
+GETs and protected writes retry with a stable key: tracker/VoC definitions,
+invitations, and journey create/enroll/stop/mint-URL/event operations. Other writes
+and uploads are attempted once. A key alone does not make a write idempotent.
 
 ```python
 # Tracker definitions and values (wire your CRM/ERP ids to feedback tools).
@@ -45,7 +46,8 @@ woku.trackers.assign_to_woku("woku_123", {"name": "Store #1", "value": "TX-42"})
 
 # VoC tools: nps_tools / csat_tools / ces_tools (create/list/get/update/delete).
 tool = woku.nps_tools.create(
-    {"name": "Post-purchase", "npsMessage": "How likely are you to recommend us?"}
+    {"name": "Post-purchase", "npsMessage": "our company",
+    "audienceType": "a friend or colleague"}
 )
 
 # Send a survey. IMPORTANT: `channel` is required and `recipients` is a list of
@@ -113,6 +115,41 @@ the key.
 ## When to reach for the reference
 
 For the full method list, request/response shapes and per-call options, point the
-user to the SDK page at https://docs.woku.app/development/sdk-python and the API
-reference at https://docs.woku.app/development/api. There is an equivalent
+user to the SDK page at https://woku.app/docs/en/development/sdk-python and the API
+reference at https://woku.app/docs/en/development/api. There is an equivalent
 JavaScript SDK (`@wokuapp/sdk`) documented at /development/sdk-javascript.
+
+## Customer journeys and media
+
+Prefer an actual journey when the task coordinates several business moments.
+One moment has one tool: several facets use Woku, satisfaction CSAT, effort CES,
+recommendation NPS. A separate loyalty intention can add a moment; several facets
+of delivery must not become several delivery moments. Journey response tools are
+identified. Operator sends start immediately; opening a QR/link waits for a saved
+first response. Later moments wait or use their webhook, optionally with a backup.
+Default wait is ten days; zero means one hour. Keep reminders enabled unless asked.
+
+The SDK exposes 17 journey methods, plus lazy enrollment iteration. Public cursor
+pages allow 100 items (default 20); the Admin page endpoint is separate and uses 50.
+Use the exact enrollment id to stop one case. Editing creates a new definition
+version; running cases keep their snapshot. A cycle finishes on its last response
+or 30 days from the first send of the last moment.
+
+Media uploads use multipart and return fileId for moment.toolSpec.fileId. They do
+not retry automatically; 413 is PayloadTooLargeError. Company keys remain on the
+backend; minted webhook URLs use a separate HTTP transport without that key.
+Keep request/idempotency ids stable during uncertain retries. Deduplication lasts
+24 hours; inspect the outcome before submitting with a new key.
+
+These v4 additions are prepared for the next package release. Verify the installed
+version and changelog before using methods not present in an older package.
+
+```python
+with open("delivery.jpg", "rb") as image:
+    media = woku.media.upload(image, filename="delivery.jpg", content_type="image/jpeg")
+for enrollment in woku.journeys.iter_enrollments(journey_id, {"limit": 100}):
+    print(enrollment["id"], enrollment["lifecycle"])
+woku.journeys.preview_moment(journey_id, "delivery", {"order": "case-123", "late": True})
+```
+
+AsyncWoku provides the corresponding awaitable methods and async iterators.

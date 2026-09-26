@@ -1,12 +1,24 @@
 {
   "name": "woku",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Voice-of-customer for OpenAI Codex. Design a listening program, run the VoC instruments (NPS, CSAT, CES, wokus), and turn every signal into a support ticket or an action plan, through woku's MCP server.",
-  "author": { "name": "woku" },
-  "homepage": "https://docs.woku.app/mcp/agent-guide",
+  "author": {
+    "name": "woku"
+  },
+  "homepage": "https://woku.app/docs/en/mcp/agent-guide",
   "repository": "https://github.com/wokuApp/woku-ai-toolkit",
   "license": "MIT",
-  "keywords": ["woku", "voice-of-customer", "cx", "nps", "csat", "ces", "surveys", "feedback", "sdk"],
+  "keywords": [
+    "woku",
+    "voice-of-customer",
+    "cx",
+    "nps",
+    "csat",
+    "ces",
+    "surveys",
+    "feedback",
+    "sdk"
+  ],
   "skills": "./skills/",
   "mcpServers": {
     "woku": {
@@ -20,7 +32,10 @@
     "longDescription": "Connect your agent to woku, the voice-of-customer platform. Design a listening program for your customer journey, place the fast VoC instruments (NPS, CSAT, CES, wokus) at each moment of truth, and turn every signal into a support ticket or an action plan.",
     "developerName": "woku",
     "category": "Productivity",
-    "capabilities": ["Read", "Write"],
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
     "websiteURL": "https://woku.app",
     "privacyPolicyURL": "https://woku.app/privacy-policy",
     "termsOfServiceURL": "https://woku.app/terms-and-conditions",
