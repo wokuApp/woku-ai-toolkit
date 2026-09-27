@@ -100,13 +100,13 @@ Every connection is bound to one company, chosen when you approve access. Read t
 
 MIT. See [LICENSE](./LICENSE).
 
-### Journey guidance update (0.2.2, prepared)
+### Journey guidance update (0.2.2)
 
 The bundled skills now route coordinated evaluations through journeys, preserve a
 reviewed MCP proposal, explain local media capabilities by host, and cover the v4
 SDK media and enrollment iterators. They distinguish protected retries from other
 writes and use variable fragments for NPS questions. Verify the installed SDK
-release before using newly prepared methods. This change does not publish a package.
+release before using journey and media methods.
 
 #### Local media by host
 

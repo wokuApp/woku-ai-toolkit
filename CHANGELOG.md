@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.2 (unreleased)
+## 0.2.2
 
 Reconcile journey/MCP workflows, reviewed proposals, local media, SDK v4 methods,
 retry boundaries and instrument selection in the shipped skills. Correct NPS

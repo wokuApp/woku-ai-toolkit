@@ -141,8 +141,8 @@ backend; minted webhook URLs use a separate HTTP transport without that key.
 Keep request/idempotency ids stable during uncertain retries. Deduplication lasts
 24 hours; inspect the outcome before submitting with a new key.
 
-These v4 additions are prepared for the next package release. Verify the installed
-version and changelog before using methods not present in an older package.
+Journey and media methods require SDK version 0.3.0 or later. Verify the installed
+version and changelog when upgrading an existing integration.
 
 ```python
 with open("delivery.jpg", "rb") as image:
