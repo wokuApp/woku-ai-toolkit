@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+
+Reconcile journey/MCP workflows, reviewed proposals, local media, SDK v4 methods,
+retry boundaries and instrument selection in the shipped skills. Correct NPS
+variable examples and public cursor limits.
+
 ## 0.2.1
 
 Remove the action-plan external-send example (Jira/Monday/ClickUp/Notion) from the SDK skills: those destinations are not available in production and the SDKs dropped `actionPlans.send`. The skills now show approve plus manage-in-woku.

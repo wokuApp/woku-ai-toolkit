@@ -6,9 +6,11 @@ The toolkit gives your agent woku's full tool catalog through woku's MCP server,
 
 It bundles:
 
-- The **woku MCP server** connection (`https://api.woku.app/mcp`), so the agent gets the full catalog (143 tools) with woku's OAuth. No API keys to copy.
+- The **woku MCP server** connection (`https://api.woku.app/mcp`), so the agent gets the live catalog with woku's OAuth. No API keys to copy.
 - The **woku skill**, which primes the agent with the method and tells it to call `woku_guide` first.
 - The **woku SDK skills** for JavaScript (`@wokuapp/sdk`) and Python (`woku`), so the agent can build server-side woku integrations in code (create tools, send surveys, read responses, drive tickets and action plans) over the public `/v1` API.
+
+The live `tools/list` response is authoritative. The catalog focuses on journeys, feedback instruments, clients, trackers, instrument reports and action plans. Data Studio and support tickets are Corporate capabilities.
 
 ## Install
 
@@ -81,7 +83,7 @@ These are configured from the app, not from a package. Add a custom connector (c
 
 Point it at `https://api.woku.app/mcp` and approve access from your woku account.
 
-See the [connect guide](https://docs.woku.app/mcp/connect-a-client) and the [agent guide](https://docs.woku.app/mcp/agent-guide) for details.
+See the [connect guide](https://woku.app/docs/en/mcp/connect-a-client) and the [agent guide](https://woku.app/docs/en/mcp/agent-guide) for details.
 
 ## What you get
 
@@ -97,3 +99,24 @@ Every connection is bound to one company, chosen when you approve access. Read t
 ## License
 
 MIT. See [LICENSE](./LICENSE).
+
+### Journey guidance update (0.2.2)
+
+The bundled skills now route coordinated evaluations through journeys, preserve a
+reviewed MCP proposal, explain local media capabilities by host, and cover the v4
+SDK media and enrollment iterators. They distinguish protected retries from other
+writes and use variable fragments for NPS questions. Verify the installed SDK
+release before using journey and media methods.
+
+#### Local media by host
+
+- Codex and Claude Code upload local files through multipart `POST /v1/woku-media`
+  or the backend SDK. The remote MCP tool accepts a public HTTPS URL or a supported
+  host-authorized file, never a local path or image bytes pasted as model text.
+  Never put a company secret key in frontend code.
+- ChatGPT and Claude web attachment access depends on the host and connector. Use
+  only file references that the connected tool can actually read, or a genuinely
+  public HTTPS URL. Do not invent a URL for a private attachment or promise that
+  every host forwards its uploaded files automatically.
+- Check the live tool schema and the `customer_journeys` playbook before choosing
+  the representation. Upload first, then use its `fileId` in the reviewed proposal.
