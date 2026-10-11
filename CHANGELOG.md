@@ -3,7 +3,7 @@
 ## 0.3.0
 
 Cover folders and the unified tools view: the woku skill documents the MCP tools
-`search_voc_tools`, `get_voc_tools_stats`, `move_voc_tools`, `update_folder`,
+`search_voc_tools`, `get_voc_tools_stats`, `move_voc_tools`, `update_folder` (also sets the folder's `whatsappAlertRecipients`),
 `delete_folder`, `get_folder_report` (`scope: "all"`, `format: "csv"`), `folderId`
 on `create_nps_tool`, `create_csat_tool` and `create_ces_tool`, and the
 `organize_listening` playbook, flows with ordered steps (`create_flow`, `update_flow`, `get_flow` with `steps`), and journeys in folders (`get_journey_folders_status`, `organize_journey_folders`, `folderId` and `momentFolders` on journeys). The JavaScript and Python SDK skills add the
