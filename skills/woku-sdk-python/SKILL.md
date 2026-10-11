@@ -139,6 +139,19 @@ Journeys in folders: `woku.journey_folders.status()` and `woku.journey_folders.o
 
 `folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (iterates across cursor pages), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. `AsyncWoku` mirrors all of it.
 
+## Flows
+
+```python
+flow = woku.flows.create({
+    "name": "Post-sale",
+    "steps": [{"type": "nps", "toolId": nps_tool_id}, {"type": "csat", "toolId": csat_tool_id}, {"type": "woku", "toolId": woku_id}],
+})
+woku.flows.update(flow["_id"], {"steps": [{"type": "csat", "toolId": csat_tool_id}]})
+woku.flows.delete(flow["_id"])  # its tools and responses stay
+```
+
+`flows`: `list`, `get`, `create`, `update`, `delete`. 1 to 20 steps, each tool once; for an `nps` step the company id as `toolId` is the company-level NPS. `AsyncWoku` mirrors it. Needs the SDK release that ships flow writes.
+
 ## Customer journeys and media
 
 Prefer an actual journey when the task coordinates several business moments.

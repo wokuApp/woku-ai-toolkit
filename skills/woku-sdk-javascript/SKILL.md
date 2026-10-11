@@ -118,6 +118,19 @@ Journeys in folders: `await woku.journeyFolders.status()` and `await woku.journe
 
 `folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (cursor iterable), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`.
 
+## Flows
+
+```ts
+const flow = await woku.flows.create({
+  name: 'Post-sale',
+  steps: [{ type: 'nps', toolId: npsToolId }, { type: 'csat', toolId: csatToolId }, { type: 'woku', toolId: wokuId }],
+});
+await woku.flows.update(flow._id, { steps: [{ type: 'csat', toolId: csatToolId }] });
+await woku.flows.delete(flow._id); // its tools and responses stay
+```
+
+`flows`: `list`, `get`, `create`, `update`, `delete`. 1 to 20 steps, each tool once; for an `nps` step the company id as `toolId` is the company-level NPS. Needs the SDK release that ships flow writes.
+
 ## Customer journeys and media
 
 Prefer an actual journey when the task coordinates several business moments.

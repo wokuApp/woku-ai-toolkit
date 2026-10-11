@@ -56,6 +56,10 @@ Read tools need no special permission. Write tools require the `mcp:write` scope
    reminders are enabled; a stopped or completed cycle may be followed by another,
    but never two open evaluations for the same subject in the same journey.
 
+## Flows with steps
+
+A flow is an ordered sequence of steps a respondent answers one after another. `create_flow` and `update_flow` take `steps`: 1 to 20 `{ type, toolId }` where `type` is `woku`, `nps`, `csat` or `ces` (each tool once, all of the company; for the company-level NPS use the company id as `toolId`). The older `wokusIds` and `npsId` still work. `get_flow` and `list_flows` return `steps`. Flows live outside folders. Call `woku_guide` with topic `flows`.
+
 ## Organize the listening in folders
 
 One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_guide` with topic `organize_listening` first.
