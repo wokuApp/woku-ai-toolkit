@@ -72,7 +72,7 @@ await woku.actionPlans.complete('plan_123');
 Namespaces: `trackers`, `npsTools` / `csatTools` / `cesTools`, `nps` / `csat` /
 `ces`, `wokus`, `forms`, `flows`, `actionPlans`, `actionPlanGroups`, `tickets`,
 `ticketDestinations`, `dispatches`, `reports`, `company`, `quarantines`, `journeys`, `media`,
-`folders`, `tools`.
+`folders`, `tools`, `journeyFolders`.
 
 ## Pagination, errors, retries
 
@@ -113,6 +113,8 @@ await woku.tools.move({ items: [{ type: 'csat', id: toolId }], folderId: null })
 const csv: string = await woku.folders.csv(folder.id);
 await woku.folders.delete(folder.id); // content moves up to the parent, nothing is deleted
 ```
+
+Journeys in folders: `await woku.journeyFolders.status()` and `await woku.journeyFolders.organize()` (background pass, 409 while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
 `folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (cursor iterable), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`.
 

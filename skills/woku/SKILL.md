@@ -64,6 +64,7 @@ One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_gui
 - `get_voc_tools_stats` gives reviews and the headline of each type (woku stars, NPS score, CSAT satisfied %, CES mean) for the company or one folder. Never average across types: the scales differ.
 - `create_folder`, `update_folder` (rename or recolor) and `move_voc_tools` (items of mixed types, `folderId: null` for the root) organize the tree; `create_nps_tool`, `create_csat_tool` and `create_ces_tool` accept `folderId`.
 - `get_folder_report` with `scope: "all"` returns the mixed AI report of a folder and its subfolders, and with `format: "csv"` the responses as CSV text.
+- Journeys can live in folders (`Viajes > journey > moment`): `get_journey_folders_status` shows whether the company organizes them and what is pending, and `organize_journey_folders` switches it on and runs a background pass that only moves tools without a folder (propose it and wait for approval; it returns a conflict while a pass is running). `get_journey` and `list_journeys` show `folderId` and `momentFolders`, and folders created by woku carry an `origin` (`journeys-root`, `journey`, `journey-moment`, `integration`).
 - `delete_folder` needs `confirm: true`; nothing inside is deleted, the content moves up to the parent. Moving or deleting folders is a user decision: propose the new structure and wait for approval.
 
 Tickets use email destinations; plans use groups of platform users. Tickets and

@@ -73,7 +73,7 @@ woku.action_plans.complete("plan_123")
 Namespaces: `trackers`, `nps_tools` / `csat_tools` / `ces_tools`, `nps` / `csat`
 / `ces`, `wokus`, `forms`, `flows`, `action_plans`, `action_plan_groups`,
 `tickets`, `ticket_destinations`, `dispatches`, `reports`, `company`,
-`quarantines`, `folders`, `tools`.
+`quarantines`, `folders`, `tools`, `journey_folders`.
 
 ## Async
 
@@ -134,6 +134,8 @@ woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None}) 
 csv_text = woku.folders.csv(folder["id"])
 woku.folders.delete(folder["id"])  # content moves up to the parent, nothing is deleted
 ```
+
+Journeys in folders: `woku.journey_folders.status()` and `woku.journey_folders.organize()` (background pass, `ConflictError` while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
 `folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (iterates across cursor pages), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. `AsyncWoku` mirrors all of it.
 
