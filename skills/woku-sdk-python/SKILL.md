@@ -73,7 +73,7 @@ woku.action_plans.complete("plan_123")
 Namespaces: `trackers`, `nps_tools` / `csat_tools` / `ces_tools`, `nps` / `csat`
 / `ces`, `wokus`, `forms`, `flows`, `action_plans`, `action_plan_groups`,
 `tickets`, `ticket_destinations`, `dispatches`, `reports`, `company`,
-`quarantines`.
+`quarantines`, `folders`, `tools`.
 
 ## Async
 
@@ -118,6 +118,24 @@ For the full method list, request/response shapes and per-call options, point th
 user to the SDK page at https://woku.app/docs/en/development/sdk-python and the API
 reference at https://woku.app/docs/en/development/api. There is an equivalent
 JavaScript SDK (`@wokuapp/sdk`) documented at /development/sdk-javascript.
+
+## Folders and tools
+
+One folder tree holds wokus and NPS, CSAT and CES tools. Needs the SDK release that ships `folders` and `tools`; verify the installed version.
+
+```python
+folder = woku.folders.create({"name": "Post-sale"})
+woku.csat_tools.create({"name": "Delivery", "question": "How satisfied are you?", "folderId": folder["id"]})
+
+for tool in woku.tools.list({"folderId": folder["id"], "types": ["csat", "nps"]}):
+    print(tool["type"], tool["name"], tool["headline"]["value"])
+stats = woku.tools.stats({"folderId": folder["id"]})  # native scales, never averaged across types
+woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None})  # None = root
+csv_text = woku.folders.csv(folder["id"])
+woku.folders.delete(folder["id"])  # content moves up to the parent, nothing is deleted
+```
+
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (iterates across cursor pages), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. `AsyncWoku` mirrors all of it.
 
 ## Customer journeys and media
 

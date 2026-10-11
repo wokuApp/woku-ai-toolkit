@@ -56,6 +56,16 @@ Read tools need no special permission. Write tools require the `mcp:write` scope
    reminders are enabled; a stopped or completed cycle may be followed by another,
    but never two open evaluations for the same subject in the same journey.
 
+## Organize the listening in folders
+
+One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_guide` with topic `organize_listening` first.
+
+- `search_voc_tools` lists a folder level or searches the whole company (any type, case and accent insensitive, cursor paginated) and returns folders with stats, tools with their native-scale headline and counts per type.
+- `get_voc_tools_stats` gives reviews and the headline of each type (woku stars, NPS score, CSAT satisfied %, CES mean) for the company or one folder. Never average across types: the scales differ.
+- `create_folder`, `update_folder` (rename or recolor) and `move_voc_tools` (items of mixed types, `folderId: null` for the root) organize the tree; `create_nps_tool`, `create_csat_tool` and `create_ces_tool` accept `folderId`.
+- `get_folder_report` with `scope: "all"` returns the mixed AI report of a folder and its subfolders, and with `format: "csv"` the responses as CSV text.
+- `delete_folder` needs `confirm: true`; nothing inside is deleted, the content moves up to the parent. Moving or deleting folders is a user decision: propose the new structure and wait for approval.
+
 Tickets use email destinations; plans use groups of platform users. Tickets and
 Data Studio are Corporate capabilities. Do not expose retired reports, alerts,
 goals, data-source or data-flow management through examples; instrument reports
