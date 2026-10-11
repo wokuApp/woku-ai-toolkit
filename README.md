@@ -104,7 +104,7 @@ MIT. See [LICENSE](./LICENSE).
 
 The skills now cover the folder tree that holds wokus and NPS, CSAT and CES tools:
 the MCP tools `search_voc_tools`, `get_voc_tools_stats`, `move_voc_tools`,
-`update_folder`, `delete_folder`, `get_folder_report` (`scope: "all"`, `format: "csv"`)
+`update_folder`, `delete_folder`, `get_folder_report` (`scope: "all"`, `format: "csv"`),
 `get_journey_folders_status`, `organize_journey_folders`, flow `steps` in `create_flow` and `update_flow`, `folderId` on the `create_*_tool` tools, the `organize_listening` playbook of
 `woku_guide`, and the SDK `folders` and `tools` resources in JavaScript and Python.
 Verify the installed SDK and server release before using them.
