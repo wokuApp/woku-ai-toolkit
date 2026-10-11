@@ -111,12 +111,13 @@ for await (const tool of await woku.tools.list({ folderId: folder.id, types: ['c
 const stats = await woku.tools.stats({ folderId: folder.id }); // native scales, never averaged across types
 await woku.tools.move({ items: [{ type: 'csat', id: toolId }], folderId: null }); // null = root
 const csv: string = await woku.folders.csv(folder.id);
+const pdf: Uint8Array = await woku.folders.pdf(folder.id, { lang: 'en' }); // folder report as PDF bytes
 await woku.folders.delete(folder.id); // content moves up to the parent, nothing is deleted
 ```
 
 Journeys in folders: `await woku.journeyFolders.status()` and `await woku.journeyFolders.organize()` (background pass, 409 while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
-`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (cursor iterable), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`.
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (cursor iterable; `foldersLimit` pages the folders with `page.hasMoreFolders()` / `page.getMoreFolders()`), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`.
 
 ## Flows
 

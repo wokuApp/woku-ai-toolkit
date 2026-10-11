@@ -132,12 +132,13 @@ for tool in woku.tools.list({"folderId": folder["id"], "types": ["csat", "nps"]}
 stats = woku.tools.stats({"folderId": folder["id"]})  # native scales, never averaged across types
 woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None})  # None = root
 csv_text = woku.folders.csv(folder["id"])
+pdf_bytes = woku.folders.pdf(folder["id"], {"lang": "en"})  # folder report as PDF bytes
 woku.folders.delete(folder["id"])  # content moves up to the parent, nothing is deleted
 ```
 
 Journeys in folders: `woku.journey_folders.status()` and `woku.journey_folders.organize()` (background pass, `ConflictError` while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
-`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`. `tools`: `list` (iterates across cursor pages), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. `AsyncWoku` mirrors all of it.
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (iterates across cursor pages; `foldersLimit` pages the folders with `has_more_folders()` / `get_more_folders()`), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. `AsyncWoku` mirrors all of it.
 
 ## Flows
 
