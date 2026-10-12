@@ -56,6 +56,23 @@ Read tools need no special permission. Write tools require the `mcp:write` scope
    reminders are enabled; a stopped or completed cycle may be followed by another,
    but never two open evaluations for the same subject in the same journey.
 
+## Flows with steps
+
+A flow is an ordered sequence of steps a respondent answers one after another. `create_flow` and `update_flow` take `steps`: 1 to 20 `{ type, toolId }` where `type` is `woku`, `nps`, `csat` or `ces` (each tool once, all of the company; for the company-level NPS use the company id as `toolId`). The older `wokusIds` and `npsId` still work. `get_flow` and `list_flows` return `steps`. Flows live outside folders. Call `woku_guide` with topic `flows`.
+
+## Organize the listening in folders
+
+One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_guide` with topic `organize_listening` first.
+
+- `search_voc_tools` lists a folder level or searches the whole company (any type, case and accent insensitive, cursor paginated) and returns folders with stats, tools with their native-scale headline and counts per type.
+- `search_voc_tools` also takes `trackers` (`"name:value"` chips, up to 10; a tool must have every one; the tracker name is matched exactly and the value partially and ignoring case, so `482` also matches `00482`; company-wide, no folders; a chip without name or value is an error) to find tools by tracker.
+- `get_folder_tools_metrics` gives, for a folder and its subfolders, per-tool figures for 7, 30 (default) or 90 days against the period before (0 = whole history) and the histogram of scores. It returns `toolCount` and the busiest tools (`limit`, default 50); the daily sums only with `includeDaily: true`. Use it for trends and to find the weakest tools; never average across types.
+- `get_voc_tools_stats` gives reviews and the headline of each type (woku stars, NPS score, CSAT satisfied %, CES mean) for the company or one folder. Never average across types: the scales differ.
+- `create_folder`, `update_folder` (rename, recolor, or set `whatsappAlertRecipients`: the WhatsApp numbers alerted when a comment of any tool in the folder is an improvement) and `move_voc_tools` (items of mixed types, `folderId: null` for the root) organize the tree; `create_nps_tool`, `create_csat_tool` and `create_ces_tool` accept `folderId`.
+- `get_folder_report` with `scope: "all"` returns the mixed AI report of a folder and its subfolders, and with `format: "csv"` the responses as CSV text. `search_voc_tools` accepts `foldersLimit` and `foldersCursor` to page the folders ("see more"; `foldersNextCursor` in the result). The folder PDF is binary, so it is only on the API and the SDKs (`GET /v1/folders/{id}/pdf`).
+- Journeys can live in folders (`Viajes > journey > moment`): `get_journey_folders_status` shows whether the company organizes them and what is pending, and `organize_journey_folders` switches it on and runs a background pass that only moves tools without a folder (propose it and wait for approval; it returns a conflict while a pass is running). `get_journey` and `list_journeys` show `folderId` and `momentFolders`, and folders created by woku carry an `origin` (`journeys-root`, `journey`, `journey-moment`, `integration`; integration folders also carry `integrationProvider`, for example `shopify`); read `origin`, `integrationProvider` and the stats of a folder with `search_voc_tools`, not with `get_folder` or `list_folders`, which only count wokus.
+- `delete_folder` needs `confirm: true`; nothing inside is deleted, the content moves up to the parent. Moving or deleting folders is a user decision: propose the new structure and wait for approval.
+
 Tickets use email destinations; plans use groups of platform users. Tickets and
 Data Studio are Corporate capabilities. Do not expose retired reports, alerts,
 goals, data-source or data-flow management through examples; instrument reports

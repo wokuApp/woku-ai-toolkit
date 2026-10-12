@@ -73,7 +73,7 @@ woku.action_plans.complete("plan_123")
 Namespaces: `trackers`, `nps_tools` / `csat_tools` / `ces_tools`, `nps` / `csat`
 / `ces`, `wokus`, `forms`, `flows`, `action_plans`, `action_plan_groups`,
 `tickets`, `ticket_destinations`, `dispatches`, `reports`, `company`,
-`quarantines`.
+`quarantines`, `folders`, `tools`, `journey_folders`.
 
 ## Async
 
@@ -118,6 +118,42 @@ For the full method list, request/response shapes and per-call options, point th
 user to the SDK page at https://woku.app/docs/en/development/sdk-python and the API
 reference at https://woku.app/docs/en/development/api. There is an equivalent
 JavaScript SDK (`@wokuapp/sdk`) documented at /development/sdk-javascript.
+
+## Folders and tools
+
+One folder tree holds wokus and NPS, CSAT and CES tools. Needs the SDK release that ships `folders` and `tools`; verify the installed version.
+
+```python
+folder = woku.folders.create({"name": "Post-sale"})
+woku.csat_tools.create({"name": "Delivery", "question": "How satisfied are you?", "folderId": folder["id"]})
+
+for tool in woku.tools.list({"folderId": folder["id"], "types": ["csat", "nps"]}):
+    print(tool["type"], tool["name"], tool["headline"]["value"])
+stats = woku.tools.stats({"folderId": folder["id"]})  # native scales, never averaged across types
+tagged = woku.tools.list({"trackers": ["TRR:00482"]})  # tracker chips "name:value", company-wide
+metrics = woku.folders.metrics(folder["id"], {"days": 30})  # per tool, period vs the previous one; 0 = all history
+woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None})  # None = root
+csv_text = woku.folders.csv(folder["id"])
+pdf_bytes = woku.folders.pdf(folder["id"], {"lang": "en"})  # folder report as PDF bytes
+woku.folders.delete(folder["id"])  # content moves up to the parent, nothing is deleted
+```
+
+Journeys in folders: `woku.journey_folders.status()` and `woku.journey_folders.organize()` (background pass, `ConflictError` while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
+
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (iterates across cursor pages; `foldersLimit` pages the folders with `has_more_folders()` / `get_more_folders()`), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. `AsyncWoku` mirrors all of it.
+
+## Flows
+
+```python
+flow = woku.flows.create({
+    "name": "Post-sale",
+    "steps": [{"type": "nps", "toolId": nps_tool_id}, {"type": "csat", "toolId": csat_tool_id}, {"type": "woku", "toolId": woku_id}],
+})
+woku.flows.update(flow["_id"], {"steps": [{"type": "csat", "toolId": csat_tool_id}]})
+woku.flows.delete(flow["_id"])  # its tools and responses stay
+```
+
+`flows`: `list`, `get`, `create`, `update`, `delete`. 1 to 20 steps, each tool once; for an `nps` step the company id as `toolId` is the company-level NPS. `AsyncWoku` mirrors it. Needs the SDK release that ships flow writes.
 
 ## Customer journeys and media
 

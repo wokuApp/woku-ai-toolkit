@@ -100,6 +100,15 @@ Every connection is bound to one company, chosen when you approve access. Read t
 
 MIT. See [LICENSE](./LICENSE).
 
+### Folders and tools update (0.3.0)
+
+The skills now cover the folder tree that holds wokus and NPS, CSAT and CES tools:
+the MCP tools `search_voc_tools` (with tracker chips), `get_voc_tools_stats`, `get_folder_tools_metrics`, `move_voc_tools`,
+`update_folder`, `delete_folder`, `get_folder_report` (`scope: "all"`, `format: "csv"`),
+`get_journey_folders_status`, `organize_journey_folders`, flow `steps` in `create_flow` and `update_flow`, `folderId` on the `create_*_tool` tools, the `organize_listening` playbook of
+`woku_guide`, and the SDK `folders` and `tools` resources in JavaScript and Python.
+Verify the installed SDK and server release before using them.
+
 ### Journey guidance update (0.2.2)
 
 The bundled skills now route coordinated evaluations through journeys, preserve a

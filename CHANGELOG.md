@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0
+
+Also the per-tool metrics of a folder (`get_folder_tools_metrics`, `folders.metrics`), tracker chips on `search_voc_tools` and `tools.list` (`trackers`) and `integrationProvider` on integration folders.
+
+Cover folders and the unified tools view: the woku skill documents the MCP tools
+`search_voc_tools`, `get_voc_tools_stats`, `move_voc_tools`, `update_folder` (also sets the folder's `whatsappAlertRecipients`),
+`delete_folder`, `get_folder_report` (`scope: "all"`, `format: "csv"`), `folderId`
+on `create_nps_tool`, `create_csat_tool` and `create_ces_tool`, and the
+`organize_listening` playbook, flows with ordered steps (`create_flow`, `update_flow`, `get_flow` with `steps`), and journeys in folders (`get_journey_folders_status`, `organize_journey_folders`, `folderId` and `momentFolders` on journeys). The JavaScript and Python SDK skills add the
+`folders` and `tools` resources. Requires the server and SDK releases that ship them. The skills also cover the folder PDF in the SDKs (`folders.pdf`) and the folders paging (`foldersLimit`, `foldersCursor`) of `search_voc_tools` and `tools.list`.
+
 ## 0.2.2
 
 Reconcile journey/MCP workflows, reviewed proposals, local media, SDK v4 methods,
