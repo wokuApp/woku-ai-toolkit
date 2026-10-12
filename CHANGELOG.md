@@ -2,6 +2,8 @@
 
 ## 0.3.0
 
+Also the per-tool metrics of a folder (`get_folder_tools_metrics`, `folders.metrics`), tracker chips on `search_voc_tools` and `tools.list` (`trackers`) and `integrationProvider` on integration folders.
+
 Cover folders and the unified tools view: the woku skill documents the MCP tools
 `search_voc_tools`, `get_voc_tools_stats`, `move_voc_tools`, `update_folder` (also sets the folder's `whatsappAlertRecipients`),
 `delete_folder`, `get_folder_report` (`scope: "all"`, `format: "csv"`), `folderId`

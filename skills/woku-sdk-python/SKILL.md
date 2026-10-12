@@ -130,6 +130,8 @@ woku.csat_tools.create({"name": "Delivery", "question": "How satisfied are you?"
 for tool in woku.tools.list({"folderId": folder["id"], "types": ["csat", "nps"]}):
     print(tool["type"], tool["name"], tool["headline"]["value"])
 stats = woku.tools.stats({"folderId": folder["id"]})  # native scales, never averaged across types
+tagged = woku.tools.list({"trackers": ["TRR:00482"]})  # tracker chips "name:value", company-wide
+metrics = woku.folders.metrics(folder["id"], {"days": 30})  # per tool, period vs the previous one; 0 = all history
 woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None})  # None = root
 csv_text = woku.folders.csv(folder["id"])
 pdf_bytes = woku.folders.pdf(folder["id"], {"lang": "en"})  # folder report as PDF bytes

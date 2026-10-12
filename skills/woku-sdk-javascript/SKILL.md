@@ -109,6 +109,8 @@ for await (const tool of await woku.tools.list({ folderId: folder.id, types: ['c
   console.log(tool.type, tool.name, tool.headline.value);
 }
 const stats = await woku.tools.stats({ folderId: folder.id }); // native scales, never averaged across types
+const tagged = await woku.tools.list({ trackers: ['TRR:00482'] }); // tracker chips 'name:value', company-wide
+const metrics = await woku.folders.metrics(folder.id, { days: 30 }); // per tool, period vs the previous one; 0 = all history
 await woku.tools.move({ items: [{ type: 'csat', id: toolId }], folderId: null }); // null = root
 const csv: string = await woku.folders.csv(folder.id);
 const pdf: Uint8Array = await woku.folders.pdf(folder.id, { lang: 'en' }); // folder report as PDF bytes
