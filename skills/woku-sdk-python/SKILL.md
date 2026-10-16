@@ -73,7 +73,7 @@ woku.action_plans.complete("plan_123")
 Namespaces: `trackers`, `nps_tools` / `csat_tools` / `ces_tools`, `nps` / `csat`
 / `ces`, `wokus`, `forms`, `flows`, `action_plans`, `action_plan_groups`,
 `tickets`, `ticket_destinations`, `dispatches`, `reports`, `company`,
-`quarantines`, `folders`, `tools`, `journey_folders`.
+`folders`, `tools`, `journey_folders`.
 
 ## Async
 

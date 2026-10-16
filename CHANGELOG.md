@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+Follow the admin period picker, search box and Sends tab. The woku skill documents `from`/`to` on `get_woku_report`, `get_folder_report` and `get_company_nps_report` (period reports generated on demand, with `periodFrom`/`periodTo`), the custom `from`/`to` range on `get_folder_tools_metrics`, the `q` text search on `list_woku_reviews`, `list_nps_responses`, `list_csat_responses` and `list_ces_responses`, and the read-only `invitations` toolset (`get_invitation_stats`, `list_invitations_by_tool`, `list_invitation_recipients`). It adds the reports the admin opens and the MCP now serves (`get_nps_tool_report`, `get_csat_report`, `get_ces_report`, `scope` on `get_company_nps_report`, `regenerate` on every report tool), and the SDK skills drop `quarantines`, which left the public API. Requires the server and SDK releases that ship them.
+
 ## 0.3.0
 
 Also the per-tool metrics of a folder (`get_folder_tools_metrics`, `folders.metrics`), tracker chips on `search_voc_tools` and `tools.list` (`trackers`) and `integrationProvider` on integration folders.

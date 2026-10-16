@@ -66,12 +66,28 @@ One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_gui
 
 - `search_voc_tools` lists a folder level or searches the whole company (any type, case and accent insensitive, cursor paginated) and returns folders with stats, tools with their native-scale headline and counts per type.
 - `search_voc_tools` also takes `trackers` (`"name:value"` chips, up to 10; a tool must have every one; the tracker name is matched exactly and the value partially and ignoring case, so `482` also matches `00482`; company-wide, no folders; a chip without name or value is an error) to find tools by tracker.
-- `get_folder_tools_metrics` gives, for a folder and its subfolders, per-tool figures for 7, 30 (default) or 90 days against the period before (0 = whole history) and the histogram of scores. It returns `toolCount` and the busiest tools (`limit`, default 50); the daily sums only with `includeDaily: true`. Use it for trends and to find the weakest tools; never average across types.
+- `get_folder_tools_metrics` gives, for a folder and its subfolders, per-tool figures for 7, 30 (default) or 90 days, or a custom `from`/`to` range of days (`YYYY-MM-DD`, both inclusive, up to 731 days), against the period before (0 = whole history) and the histogram of scores. It returns `toolCount` and the busiest tools (`limit`, default 50); the daily sums only with `includeDaily: true`. Use it for trends and to find the weakest tools; never average across types.
 - `get_voc_tools_stats` gives reviews and the headline of each type (woku stars, NPS score, CSAT satisfied %, CES mean) for the company or one folder. Never average across types: the scales differ.
 - `create_folder`, `update_folder` (rename, recolor, or set `whatsappAlertRecipients`: the WhatsApp numbers alerted when a comment of any tool in the folder is an improvement) and `move_voc_tools` (items of mixed types, `folderId: null` for the root) organize the tree; `create_nps_tool`, `create_csat_tool` and `create_ces_tool` accept `folderId`.
 - `get_folder_report` with `scope: "all"` returns the mixed AI report of a folder and its subfolders, and with `format: "csv"` the responses as CSV text. `search_voc_tools` accepts `foldersLimit` and `foldersCursor` to page the folders ("see more"; `foldersNextCursor` in the result). The folder PDF is binary, so it is only on the API and the SDKs (`GET /v1/folders/{id}/pdf`).
 - Journeys can live in folders (`Viajes > journey > moment`): `get_journey_folders_status` shows whether the company organizes them and what is pending, and `organize_journey_folders` switches it on and runs a background pass that only moves tools without a folder (propose it and wait for approval; it returns a conflict while a pass is running). `get_journey` and `list_journeys` show `folderId` and `momentFolders`, and folders created by woku carry an `origin` (`journeys-root`, `journey`, `journey-moment`, `integration`; integration folders also carry `integrationProvider`, for example `shopify`); read `origin`, `integrationProvider` and the stats of a folder with `search_voc_tools`, not with `get_folder` or `list_folders`, which only count wokus.
 - `delete_folder` needs `confirm: true`; nothing inside is deleted, the content moves up to the parent. Moving or deleting folders is a user decision: propose the new structure and wait for approval.
+
+## Periods and text search
+
+The tools follow the admin period picker and search box.
+
+- The report tools return what the admin report page shows: `get_woku_report`, `get_folder_report` (also with `scope: "all"`), `get_company_nps_report` (`scope: "general"` keeps only the company's own NPS survey), `get_nps_tool_report`, and `get_csat_report` / `get_ces_report` (one tool with its id, the whole company without it). A report is generated when missing or stale and cached; `regenerate: true` rebuilds it like the admin "Regenerate report" button and needs the `mcp:write` scope.
+- All of them take `from`/`to` (`YYYY-MM-DD`, UTC, both inclusive, given together) to restrict the AI report to the reviews of that period. A period report is generated on demand (it can take a few seconds), carries `periodFrom`/`periodTo`, and a period without reviews returns an empty report, not an error. The CSV ignores the period.
+- `list_woku_reviews`, `list_nps_responses`, `list_csat_responses` and `list_ces_responses` take `q` to keep only the responses whose comment contains that text (case and accent insensitive, 2 to 100 characters), plus their `from`/`to` range.
+
+## Sends
+
+Read-only tools of the `invitations` toolset show the invitations the company sent by email and WhatsApp (admin, API, MCP and integrations):
+
+- `get_invitation_stats` gives, for an optional `from`/`to` period, the sent, delivered and answered invitations, the response rate and the ones never sent by reason (`no_whatsapp_credits`, `notifications_disabled`, `provider_error`).
+- `list_invitations_by_tool` gives, per tool, the invitations sent by email and by WhatsApp, the ones not sent and the answered ones.
+- `list_invitation_recipients` lists who got a tool's invitations and what happened to each one; use `status: "invited"` to find who has not answered yet before proposing a reminder with the `send_*` tools.
 
 Tickets use email destinations; plans use groups of platform users. Tickets and
 Data Studio are Corporate capabilities. Do not expose retired reports, alerts,
