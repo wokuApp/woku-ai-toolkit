@@ -77,7 +77,8 @@ One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_gui
 
 The tools follow the admin period picker and search box.
 
-- `get_woku_report`, `get_folder_report` (also with `scope: "all"`) and `get_company_nps_report` take `from`/`to` (`YYYY-MM-DD`, UTC, both inclusive, given together) to restrict the AI report to the reviews of that period. A period report is generated on demand (it can take a few seconds), carries `periodFrom`/`periodTo`, and a period without reviews returns an empty report, not an error. The CSV ignores the period.
+- The report tools return what the admin report page shows: `get_woku_report`, `get_folder_report` (also with `scope: "all"`), `get_company_nps_report` (`scope: "general"` keeps only the company's own NPS survey), `get_nps_tool_report`, and `get_csat_report` / `get_ces_report` (one tool with its id, the whole company without it). A report is generated when missing or stale and cached; `regenerate: true` rebuilds it like the admin "Regenerate report" button and needs the `mcp:write` scope.
+- All of them take `from`/`to` (`YYYY-MM-DD`, UTC, both inclusive, given together) to restrict the AI report to the reviews of that period. A period report is generated on demand (it can take a few seconds), carries `periodFrom`/`periodTo`, and a period without reviews returns an empty report, not an error. The CSV ignores the period.
 - `list_woku_reviews`, `list_nps_responses`, `list_csat_responses` and `list_ces_responses` take `q` to keep only the responses whose comment contains that text (case and accent insensitive, 2 to 100 characters), plus their `from`/`to` range.
 
 ## Sends

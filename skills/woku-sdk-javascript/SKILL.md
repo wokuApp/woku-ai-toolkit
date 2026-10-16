@@ -71,7 +71,7 @@ await woku.actionPlans.complete('plan_123');
 
 Namespaces: `trackers`, `npsTools` / `csatTools` / `cesTools`, `nps` / `csat` /
 `ces`, `wokus`, `forms`, `flows`, `actionPlans`, `actionPlanGroups`, `tickets`,
-`ticketDestinations`, `dispatches`, `reports`, `company`, `quarantines`, `journeys`, `media`,
+`ticketDestinations`, `dispatches`, `reports`, `company`, `journeys`, `media`,
 `folders`, `tools`, `journeyFolders`.
 
 ## Pagination, errors, retries

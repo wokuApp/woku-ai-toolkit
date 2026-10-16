@@ -107,8 +107,9 @@ on `get_woku_report`, `get_folder_report` and `get_company_nps_report` (the peri
 is generated on demand), a custom `from`/`to` range on `get_folder_tools_metrics`, `q`
 text search on `list_woku_reviews`, `list_nps_responses`, `list_csat_responses` and
 `list_ces_responses`, and the read-only `invitations` toolset (`get_invitation_stats`,
-`list_invitations_by_tool`, `list_invitation_recipients`). Verify the server release
-before using them.
+`list_invitations_by_tool`, `list_invitation_recipients`). The report tools add
+`get_nps_tool_report`, `get_csat_report` and `get_ces_report`, and take `regenerate`.
+The SDK skills drop `quarantines`. Verify the server and SDK releases before using them.
 
 ### Folders and tools update (0.3.0)
 
