@@ -100,6 +100,16 @@ Every connection is bound to one company, chosen when you approve access. Read t
 
 MIT. See [LICENSE](./LICENSE).
 
+### Periods, search and sends update (0.4.0)
+
+The woku skill follows the admin period picker, search box and Sends tab: `from`/`to`
+on `get_woku_report`, `get_folder_report` and `get_company_nps_report` (the period report
+is generated on demand), a custom `from`/`to` range on `get_folder_tools_metrics`, `q`
+text search on `list_woku_reviews`, `list_nps_responses`, `list_csat_responses` and
+`list_ces_responses`, and the read-only `invitations` toolset (`get_invitation_stats`,
+`list_invitations_by_tool`, `list_invitation_recipients`). Verify the server release
+before using them.
+
 ### Folders and tools update (0.3.0)
 
 The skills now cover the folder tree that holds wokus and NPS, CSAT and CES tools:
