@@ -119,7 +119,7 @@ await woku.folders.delete(folder.id); // content moves up to the parent, nothing
 
 Journeys in folders: `await woku.journeyFolders.status()` and `await woku.journeyFolders.organize()` (background pass, 409 while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
-`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (cursor iterable; `foldersLimit` pages the folders with `page.hasMoreFolders()` / `page.getMoreFolders()`), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`.
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (cursor iterable; `foldersLimit` pages the folders with `page.hasMoreFolders()` / `page.getMoreFolders()`), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`. They also take `anonymousDisabled` and `onlyOneResponsePerClient` on `create` and `update` (both editable after responses; a repeat answer is HTTP 409 `ALREADY_RESPONDED`).
 
 ## Flows
 
