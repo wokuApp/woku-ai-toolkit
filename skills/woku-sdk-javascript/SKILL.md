@@ -72,7 +72,7 @@ await woku.actionPlans.complete('plan_123');
 Namespaces: `trackers`, `npsTools` / `csatTools` / `cesTools`, `nps` / `csat` /
 `ces`, `wokus`, `forms`, `flows`, `actionPlans`, `actionPlanGroups`, `tickets`,
 `ticketDestinations`, `dispatches`, `reports`, `company`, `journeys`, `media`,
-`folders`, `tools`, `journeyFolders`.
+`folders`, `folderParticipants`, `tools`, `journeyFolders`, `reportSubscriptions`.
 
 ## Pagination, errors, retries
 
@@ -119,7 +119,7 @@ await woku.folders.delete(folder.id); // content moves up to the parent, nothing
 
 Journeys in folders: `await woku.journeyFolders.status()` and `await woku.journeyFolders.organize()` (background pass, 409 while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
-`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (cursor iterable; `foldersLimit` pages the folders with `page.hasMoreFolders()` / `page.getMoreFolders()`), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`. They also take `anonymousDisabled` and `onlyOneResponsePerClient` on `create` and `update` (both editable after responses; a repeat answer is HTTP 409 `ALREADY_RESPONDED`).
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv` (optional `{ from, to }`), `pdf`. `folderParticipants`: `get`, `replace`, `add`, `remove`, `clear`, `resendToMissing`. `reportSubscriptions`: `list`, `create`, `update`, `delete`, `send`. `tools`: `list` (`sort: '-lastResponse'` for the latest responses; cursor iterable; `foldersLimit` pages the folders with `page.hasMoreFolders()` / `page.getMoreFolders()`), `stats`, `move`. `npsTools` / `csatTools` / `cesTools` accept `folderId` on `create` and have `move(id, { folderId })`. They also take `anonymousDisabled` and `onlyOneResponsePerClient` on `create` and `update` (both editable after responses; a repeat answer is HTTP 409 `ALREADY_RESPONDED`).
 
 ## Flows
 

@@ -140,7 +140,7 @@ woku.folders.delete(folder["id"])  # content moves up to the parent, nothing is 
 
 Journeys in folders: `woku.journey_folders.status()` and `woku.journey_folders.organize()` (background pass, `ConflictError` while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
 
-`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv`, `pdf`. `tools`: `list` (iterates across cursor pages; `foldersLimit` pages the folders with `has_more_folders()` / `get_more_folders()`), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. They also take `anonymousDisabled` and `onlyOneResponsePerClient` on `create` and `update` (both editable after responses; a repeat answer is HTTP 409 `ALREADY_RESPONDED`). `AsyncWoku` mirrors all of it.
+`folders`: `list`, `get`, `create`, `update`, `move`, `delete`, `report`, `csv` (optional `{"from", "to"}`), `pdf`. `folder_participants`: `get`, `replace`, `add`, `remove`, `clear`, `resend_to_missing`. `report_subscriptions`: `list`, `create`, `update`, `delete`, `send`. `tools`: `list` (`{"sort": "-lastResponse"}` for the latest responses; iterates across cursor pages; `foldersLimit` pages the folders with `has_more_folders()` / `get_more_folders()`), `stats`, `move`. `nps_tools` / `csat_tools` / `ces_tools` accept `folderId` on `create` and have `move(tool_id, {"folderId": ...})`. They also take `anonymousDisabled` and `onlyOneResponsePerClient` on `create` and `update` (both editable after responses; a repeat answer is HTTP 409 `ALREADY_RESPONDED`). `AsyncWoku` mirrors all of it.
 
 ## Flows
 
