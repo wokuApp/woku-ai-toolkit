@@ -100,6 +100,19 @@ Every connection is bound to one company, chosen when you approve access. Read t
 
 MIT. See [LICENSE](./LICENSE).
 
+### Participants, scheduled reports and survey settings update (0.5.0)
+
+The woku skill covers folder participant lists (`get_folder_participants`,
+`set_folder_participants`, `remove_folder_participant`, `resend_to_missing_participants`),
+scheduled report emails (`list_scheduled_reports`, `schedule_report`,
+`update_scheduled_report`, `delete_scheduled_report`, `send_scheduled_report_now`),
+the period on the folder CSV of `get_folder_report`, the `lastResponse` sort of
+`search_voc_tools`, `allReviews` on folder WhatsApp alerts, and the NPS, CSAT and CES
+response settings (`anonymousDisabled`, `onlyOneResponsePerClient`). Sends and deletions
+need `confirm: true`. The SDK skills add `folderParticipants` / `folder_participants` and
+`reportSubscriptions` / `report_subscriptions` (SDK 0.8.0). Verify the server and SDK
+releases before using them.
+
 ### Periods, search and sends update (0.4.0)
 
 The woku skill follows the admin period picker, search box and Sends tab: `from`/`to`

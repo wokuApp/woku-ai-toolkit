@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.5.0
 
 The woku skill documents folder participants (`get_folder_participants`, `set_folder_participants`, `remove_folder_participant`, `resend_to_missing_participants`), scheduled report emails (`list_scheduled_reports`, `schedule_report`, `update_scheduled_report`, `delete_scheduled_report`, `send_scheduled_report_now`), the period on the folder CSV and the `lastResponse` sort of `search_voc_tools`. The SDK skills add `folderParticipants` / `folder_participants`, `reportSubscriptions` / `report_subscriptions`, the CSV period and the sort. Requires the server and SDK releases that ship them.
 
