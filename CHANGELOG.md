@@ -2,7 +2,11 @@
 
 ## Unreleased
 
+The woku skill documents folder participants (`get_folder_participants`, `set_folder_participants`, `remove_folder_participant`, `resend_to_missing_participants`), scheduled report emails (`list_scheduled_reports`, `schedule_report`, `update_scheduled_report`, `delete_scheduled_report`, `send_scheduled_report_now`), the period on the folder CSV and the `lastResponse` sort of `search_voc_tools`. The SDK skills add `folderParticipants` / `folder_participants`, `reportSubscriptions` / `report_subscriptions`, the CSV period and the sort. Requires the server and SDK releases that ship them.
+
 The woku skill documents `allReviews` on the `whatsappAlertRecipients` of `update_folder`: the admin switch "All reviews" that alerts a number for recognitions too (off by default, improvements only). Requires the server release that ships it.
+
+The woku skill documents the response settings of NPS, CSAT and CES (`anonymousDisabled`, `onlyOneResponsePerClient` on `create_*_tool` and `update_*_tool`), editable even after a survey has responses. Requires the server release that ships it.
 
 ## 0.4.0
 
