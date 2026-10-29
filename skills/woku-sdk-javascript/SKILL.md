@@ -114,7 +114,17 @@ const metrics = await woku.folders.metrics(folder.id, { days: 30 }); // per tool
 await woku.tools.move({ items: [{ type: 'csat', id: toolId }], folderId: null }); // null = root
 const csv: string = await woku.folders.csv(folder.id);
 const pdf: Uint8Array = await woku.folders.pdf(folder.id, { lang: 'en' }); // folder report as PDF bytes
-await woku.folders.delete(folder.id); // content moves up to the parent, nothing is deleted
+await woku.folders.delete(folder.id); // content moves up; 409 FOLDER_HAS_DEPENDENTS if destinations or groups are configured on it
+await woku.folders.delete(folder.id, { confirmDependents: true }); // also deletes those destinations and groups (tickets and plans)
+```
+
+Support and plans by folder: a destination or plan group listens to tracker rows or to one folder (every tool inside it, at any depth), never both.
+
+```ts
+await woku.ticketDestinations.create({ name: 'Store support', kind: 'email', config: { emails: ['support@acme.com'] }, scopeKind: 'folder', folderId: folder.id });
+await woku.actionPlanGroups.create({ name: 'Stores', scopeKind: 'folder', folderId: folder.id, members: [{ userId, role: 'admin' }] });
+const listening = await woku.ticketDestinations.list({ folderId: folder.id }); // on the folder or an ancestor
+for await (const ticket of await woku.tickets.list({ folderId: folder.id })) console.log(ticket.origin?.folder?.path);
 ```
 
 Journeys in folders: `await woku.journeyFolders.status()` and `await woku.journeyFolders.organize()` (background pass, 409 while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.
