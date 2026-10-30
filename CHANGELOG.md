@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+
+Support and plans by folder. The woku skill documents `scopeKind: "folder"` with `folderId` on `create_ticket_destination`, `update_ticket_destination`, `create_action_plan_group` and `update_action_plan_group` (the destination or group listens to every tool inside the folder, at any depth, never mixed with tracker rows), the `folderId` filter on `list_ticket_destinations`, `list_action_plan_groups` and `list_tickets`, and the `FOLDER_HAS_DEPENDENTS` confirmation (`confirmDependents: true`) of `delete_folder`. The SDK skills add the same options (`scopeKind`/`folderId`, `folderId` filters, `confirmDependents` / `confirm_dependents`). Requires the server and SDK releases that ship them.
+
 ## 0.5.0
 
 The woku skill documents folder participants (`get_folder_participants`, `set_folder_participants`, `remove_folder_participant`, `resend_to_missing_participants`), scheduled report emails (`list_scheduled_reports`, `schedule_report`, `update_scheduled_report`, `delete_scheduled_report`, `send_scheduled_report_now`), the period on the folder CSV and the `lastResponse` sort of `search_voc_tools`. The SDK skills add `folderParticipants` / `folder_participants`, `reportSubscriptions` / `report_subscriptions`, the CSV period and the sort. Requires the server and SDK releases that ship them.

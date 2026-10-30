@@ -135,7 +135,18 @@ metrics = woku.folders.metrics(folder["id"], {"days": 30})  # per tool, period v
 woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None})  # None = root
 csv_text = woku.folders.csv(folder["id"])
 pdf_bytes = woku.folders.pdf(folder["id"], {"lang": "en"})  # folder report as PDF bytes
-woku.folders.delete(folder["id"])  # content moves up to the parent, nothing is deleted
+woku.folders.delete(folder["id"])  # content moves up; 409 FOLDER_HAS_DEPENDENTS if destinations or groups are configured on it
+woku.folders.delete(folder["id"], confirm_dependents=True)  # also deletes those destinations and groups (tickets and plans)
+```
+
+Support and plans by folder: a destination or plan group listens to tracker rows or to one folder (every tool inside it, at any depth), never both.
+
+```python
+woku.ticket_destinations.create({"name": "Store support", "kind": "email", "config": {"emails": ["support@acme.com"]}, "scopeKind": "folder", "folderId": folder["id"]})
+woku.action_plan_groups.create({"name": "Stores", "scopeKind": "folder", "folderId": folder["id"], "members": [{"userId": user_id, "role": "admin"}]})
+listening = woku.ticket_destinations.list(params={"folderId": folder["id"]})  # on the folder or an ancestor
+for ticket in woku.tickets.list({"folderId": folder["id"]}):
+    print(ticket.get("origin", {}).get("folder", {}).get("path"))
 ```
 
 Journeys in folders: `woku.journey_folders.status()` and `woku.journey_folders.organize()` (background pass, `ConflictError` while running); `journeys.get` returns `folderId` and `momentFolders`, and folders expose `origin`.

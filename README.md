@@ -100,6 +100,15 @@ Every connection is bound to one company, chosen when you approve access. Read t
 
 MIT. See [LICENSE](./LICENSE).
 
+### Support and plans by folder update (0.6.0)
+
+Support destinations and action plan groups can listen to one tool folder instead
+of tracker rows (`scopeKind: "folder"` with `folderId`; every tool inside it, at
+any depth). Destination, group and ticket lists filter by `folderId`, and
+`delete_folder` asks for `confirmDependents: true` before deleting the destinations
+and groups configured on the folder (with their tickets and plans). The SDK skills
+cover the same options. Verify the server and SDK releases before using them.
+
 ### Participants, scheduled reports and survey settings update (0.5.0)
 
 The woku skill covers folder participant lists (`get_folder_participants`,
