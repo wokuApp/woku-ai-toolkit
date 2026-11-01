@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+
+Two paths for a program (SV-0022). The woku skill no longer assumes a customer journey: it presents two independent decisions, structure (a journey for a repeatable process, or folders for a program that varies such as courses, teachers, trainings or events) and routing (by folder, or by trackers, which also carry CRM or ERP values sent by integrations), starts by diagnosing what the company already uses and asks when it is not clear. `design_voc_program` takes `structure`, `routing` and `folderLevels`; without `structure` it returns the criteria for both paths. Requires the server release that ships it.
+
 ## 0.6.0
 
 Support and plans by folder. The woku skill documents `scopeKind: "folder"` with `folderId` on `create_ticket_destination`, `update_ticket_destination`, `create_action_plan_group` and `update_action_plan_group` (the destination or group listens to every tool inside the folder, at any depth, never mixed with tracker rows), the `folderId` filter on `list_ticket_destinations`, `list_action_plan_groups` and `list_tickets`, and the `FOLDER_HAS_DEPENDENTS` confirmation (`confirmDependents: true`) of `delete_folder`. The SDK skills add the same options (`scopeKind`/`folderId`, `folderId` filters, `confirmDependents` / `confirm_dependents`). Requires the server and SDK releases that ship them.

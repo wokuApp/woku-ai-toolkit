@@ -2,7 +2,7 @@
 
 Connect your AI agent to [woku](https://woku.app), the voice-of-customer platform.
 
-The toolkit gives your agent woku's full tool catalog through woku's MCP server, plus the woku method so it acts as a customer-experience consultant: design a listening program for your customer journey, place the fast VoC instruments (NPS, CSAT, CES, wokus) at each moment of truth, and turn every signal into a support ticket or an action plan.
+The toolkit gives your agent woku's full tool catalog through woku's MCP server, plus the woku method so it acts as a customer-experience consultant: design a listening program as a customer journey (a repeatable process) or in folders (programs that vary, like courses, trainings or events), place the fast VoC instruments (NPS, CSAT, CES, wokus) where they matter, and turn every signal into a support ticket or an action plan routed by folder or by trackers.
 
 It bundles:
 
@@ -10,7 +10,7 @@ It bundles:
 - The **woku skill**, which primes the agent with the method and tells it to call `woku_guide` first.
 - The **woku SDK skills** for JavaScript (`@wokuapp/sdk`) and Python (`woku`), so the agent can build server-side woku integrations in code (create tools, send surveys, read responses, drive tickets and action plans) over the public `/v1` API.
 
-The live `tools/list` response is authoritative. The catalog focuses on journeys, feedback instruments, clients, trackers, instrument reports and action plans. Data Studio and support tickets are Corporate capabilities.
+The live `tools/list` response is authoritative. The catalog covers journeys, folders, feedback instruments, clients, trackers, instrument reports and action plans. Data Studio and support tickets are Corporate capabilities.
 
 ## Install
 
@@ -99,6 +99,16 @@ Every connection is bound to one company, chosen when you approve access. Read t
 ## License
 
 MIT. See [LICENSE](./LICENSE).
+
+### Two paths update (0.7.0)
+
+The agent no longer assumes a customer journey. A program takes two independent
+decisions: structure (a journey for a repeatable process, or folders for a
+program that varies, like courses, trainings or events) and routing (by folder,
+or by trackers, which also carry CRM or ERP values from integrations).
+`design_voc_program` takes `structure`, `routing` and `folderLevels`; without
+`structure` it returns the criteria for both paths. Verify the server release
+before using it.
 
 ### Support and plans by folder update (0.6.0)
 

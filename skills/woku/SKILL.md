@@ -1,6 +1,6 @@
 ---
 name: woku
-description: "Use woku to protect revenue with the voice of the customer. Use when the user wants to set up customer feedback or listening, design a Voice-of-Customer program, place surveys (NPS, CSAT, CES) or wokus at moments of their customer journey, turn feedback into support tickets or action plans, or operate their woku account from the agent. Requires the woku MCP server connected (this toolkit declares it)."
+description: "Use woku to protect revenue with the voice of the customer. Use when the user wants to set up customer feedback or listening, design a Voice-of-Customer program, evaluate courses, teachers, trainings, events or teams organized in folders, place surveys (NPS, CSAT, CES) or wokus at the moments of a customer journey, turn feedback into support tickets or action plans, or operate their woku account from the agent. Requires the woku MCP server connected (this toolkit declares it)."
 ---
 
 # woku: voice-of-customer for your agent
@@ -13,18 +13,23 @@ Before doing anything else, call the `woku_guide` tool. With no arguments it ret
 
 ## The woku method
 
-Every business is a customer journey, and each moment of truth decides whether the customer returns or leaves. woku protects revenue with a simple idea:
+woku protects revenue with a simple idea:
 
-1. At each moment of truth, listen with a fast instrument (a rating plus a text or voice comment, under 60 seconds): NPS, CSAT, CES, or a woku.
+1. At the moments that matter, listen with a fast instrument (a rating plus a text or voice comment, under 60 seconds): NPS, CSAT, CES, or a woku.
 2. Every signal triggers an action. One signal becomes a support ticket (individual attention). Recurring signals across customers become an action plan (systematic improvement).
-3. Trackers are the connective tissue: they segment instruments by journey, moment, or locality, and that segmentation routes each ticket and groups each plan.
+
+How the listening is organized takes two independent decisions. Neither has a default; both paths are equally valid and can live side by side:
+
+- **Structure.** A **journey** fits a repeatable process every customer goes through in the same order (purchase, delivery, support, renewal); it runs by itself and provisions its own instruments and routing. **Folders** fit a program that varies and is managed from the admin: education and training (programs, courses, teachers, classes), events and editions, teams or branches.
+- **Routing** of tickets and action plans. **By folder**: a ticket destination or action plan group scoped to one folder covers every tool inside it, with no trackers. **By trackers**: segments across the structure (journey, moment, locality), or a CRM or ERP value that an integration written in code sends, with or without journeys.
 
 ## How to help
 
-1. For a coordinated customer journey, use the journey workflow below. For a collection of independent instruments, call `design_voc_program`. Pass what the user knows (business type, channels, their journey moments, how to segment) and it returns a blueprint: the recommended instrument per moment (from the canonical template: sale to CSAT, delivery to woku, support to CES, post-sale to woku, loyalty to NPS), the tracker design, the action wiring, and the ordered `create_*` steps to build it.
-2. Walk the blueprint with the user and adapt it to their real journey.
-3. Build it with the `create_*` tools once the user approves, and distribute the instruments with the `send_*` tools. Nothing is created or sent without an explicit confirmation.
-4. From then on, let every signal trigger its action: tickets for individual attention, plans for systematic improvement.
+1. Diagnose first. Ask what kind of program it is (a repeatable process or one that varies) and read what the company already uses: `search_voc_tools` at the root (folders and their tools), `list_journeys` and `get_journey_folders_status`, `list_trackers`, `list_integration_connections`. If it is not clear, ask instead of assuming a journey.
+2. Call `design_voc_program` with `structure` (`journey` or `folders`) and `routing` (`folders` or `trackers`). Without `structure` it returns the criteria for both paths so you decide with the user. For folders pass `folderLevels` with the user's own levels (for example Program, Course, Teacher); for a journey pass their moments, business type and channels.
+3. Walk the proposal with the user and adapt it to their real program. For a journey follow the journey workflow below; for folders follow "Organize the listening in folders".
+4. Build it once the user approves, and distribute the instruments with the `send_*` tools. Nothing is created or sent without an explicit confirmation.
+5. From then on, let every signal trigger its action: tickets for individual attention, plans for systematic improvement.
 
 ## Safety
 
@@ -74,7 +79,7 @@ One folder tree holds wokus and NPS, CSAT and CES tools together. Call `woku_gui
 - A folder can keep a participant list (a program's enrolled): `get_folder_participants` returns it and, per tool of the subtree, the indexes of who answered (`responded`), who did not (`missing`) and who answered more than once (`repeated`), plus `outsideList` and `anonymousAllowed` (anonymous responses cannot be matched). `set_folder_participants` replaces the list (`mode: "replace"`) or adds to it (`mode: "add"`) from text, one person per line with a name, an email and/or a phone; `remove_folder_participant` removes one person or the whole list; `resend_to_missing_participants` sends a tool again to the missing by email or WhatsApp. Removing and resending need `confirm: true`; propose them and wait for approval.
 - `schedule_report` emails the PDF report of a folder or a tool on a schedule (`monthly`, `biweekly`, `weekly` at 12:00 UTC with the previous complete period, or `once` with `periodFrom`/`periodTo`) to up to 10 recipients; `list_scheduled_reports`, `update_scheduled_report` (edit, pause, resume), `delete_scheduled_report` and `send_scheduled_report_now` manage them. Scheduling, sending now and deleting need `confirm: true`: they email real people.
 - `delete_folder` needs `confirm: true`; the content moves up to the parent. Support destinations and action plan groups configured ON that folder are deleted with it, with their tickets and plans: the call then fails with `FOLDER_HAS_DEPENDENTS` and the list; show it and repeat with `confirmDependents: true` only if the user agrees. Moving or deleting folders is a user decision: propose the new structure and wait for approval.
-- Support and plans by folder: `create_ticket_destination` and `create_action_plan_group` (and their `update_*`) take `scopeKind: "folder"` with a `folderId` instead of tracker rows: the destination or group then listens to every tool inside that folder, at any depth, resolved when each review arrives (moving a tool out stops it counting). Never both. A ticket reaches every enabled destination that matches it (trackers, a folder and its subfolders), as one ticket with `destinationIds` (`destinationId` is the highest-priority one); all its email destinations share one email to each address once, listing who got it. `list_ticket_destinations`, `list_action_plan_groups` and `list_tickets` accept `folderId`. When the company already organizes its tools in folders by store, team or moment, propose a folder scope before designing trackers.
+- Support and plans by folder: `create_ticket_destination` and `create_action_plan_group` (and their `update_*`) take `scopeKind: "folder"` with a `folderId` instead of tracker rows: the destination or group then listens to every tool inside that folder, at any depth, resolved when each review arrives (moving a tool out stops it counting). Never both. A ticket reaches every enabled destination that matches it (trackers, a folder and its subfolders), as one ticket with `destinationIds` (`destinationId` is the highest-priority one); all its email destinations share one email to each address once, listing who got it. `list_ticket_destinations`, `list_action_plan_groups` and `list_tickets` accept `folderId`. When the company already organizes its tools in folders by program, store, team or moment, routing by folder needs no trackers; use trackers when a signal must be segmented across folders or by a CRM or ERP value.
 
 ## Periods and text search
 
