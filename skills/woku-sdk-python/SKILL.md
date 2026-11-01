@@ -132,6 +132,8 @@ for tool in woku.tools.list({"folderId": folder["id"], "types": ["csat", "nps"]}
 stats = woku.tools.stats({"folderId": folder["id"]})  # native scales, never averaged across types
 tagged = woku.tools.list({"trackers": ["TRR:00482"]})  # tracker chips "name:value", company-wide
 metrics = woku.folders.metrics(folder["id"], {"days": 30})  # per tool, period vs the previous one; 0 = all history
+company_csat = woku.tools.metrics({"type": "csat", "days": 30})  # every CSAT of the company (company report metrics)
+woku_report = woku.reports.company_woku()  # AI report over every woku of the company
 woku.tools.move({"items": [{"type": "csat", "id": tool_id}], "folderId": None})  # None = root
 csv_text = woku.folders.csv(folder["id"])
 pdf_bytes = woku.folders.pdf(folder["id"], {"lang": "en"})  # folder report as PDF bytes
