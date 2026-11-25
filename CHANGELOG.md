@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.1
+
+README only. ChatGPT users install the official woku plugin from the ChatGPT plugin directory; developer mode is no longer needed. No skill changes.
+
 ## 0.7.0
 
 Two paths for a program (SV-0022). The woku skill no longer assumes a customer journey: it presents two independent decisions, structure (a journey for a repeatable process, or folders for a program that varies such as courses, teachers, trainings or events) and routing (by folder, or by trackers, which also carry CRM or ERP values sent by integrations), starts by diagnosing what the company already uses and asks when it is not clear. `design_voc_program` takes `structure`, `routing` and `folderLevels`; without `structure` it returns the criteria for both paths. Requires the server release that ships it.
