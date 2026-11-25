@@ -77,7 +77,7 @@ The package exposes the woku skill through Pi's `pi` package convention. Install
 
 ### claude.ai and ChatGPT
 
-These are configured from the app, not from a package. Add a custom connector (claude.ai) or a developer-mode connector (ChatGPT) with the URL `https://api.woku.app/mcp`.
+These are configured from the app, not from a package. In ChatGPT, install the [official woku plugin](https://chatgpt.com/plugins/plugin_asdk_app_6af52e4494d08191953d66733dcb9b9c) from the plugin directory; developer mode is not needed. In claude.ai, add a custom connector with the URL `https://api.woku.app/mcp`.
 
 ### Any other MCP client
 
